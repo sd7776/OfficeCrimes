@@ -6,9 +6,11 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -41,7 +43,10 @@ public class CrimeListFragment extends Fragment {
     private class CrimeHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         private TextView mTitleTextView;
         private TextView mDateTextView;
+        private ImageView mSolvedImageView;
         private Crime mCrime;
+        private DateFormat dateFormat;
+        private CharSequence charSequence;
 
         public CrimeHolder(LayoutInflater inflater, ViewGroup parent){
             super(inflater.inflate(R.layout.list_item_crime, parent, false));
@@ -49,12 +54,31 @@ public class CrimeListFragment extends Fragment {
 
             mTitleTextView = (TextView) itemView.findViewById(R.id.crime_title);
             mDateTextView = (TextView) itemView.findViewById(R.id.crime_date);
+            mSolvedImageView = (ImageView)itemView.findViewById(R.id.crime_solved_imageview);
+            dateFormat = new DateFormat();
+            charSequence = new CharSequence() {
+                @Override
+                public int length() {
+                    return 0;
+                }
+
+                @Override
+                public char charAt(int i) {
+                    return 0;
+                }
+
+                @Override
+                public CharSequence subSequence(int i, int i1) {
+                    return null;
+                }
+            };
         }
 
         public void bind(Crime crime){
             mCrime = crime;
             mTitleTextView.setText(mCrime.getTitle());
-            mDateTextView.setText(mCrime.getDate().toString());
+            mDateTextView.setText(dateFormat.format("EEEE, MMM dd, yyyy",mCrime.getDate()));
+            mSolvedImageView.setVisibility(crime.isSolved()? View.VISIBLE : View.GONE);
         }
 
         @Override
