@@ -12,7 +12,13 @@ public class Crime {
     private boolean solved;
 
     public Crime(){
-        id = UUID.randomUUID();
+        this(UUID.randomUUID());
+        /*id = UUID.randomUUID();
+        date = new Date()*/;
+    }
+
+    public Crime(UUID id){
+        this.id = id;
         date = new Date();
     }
 
