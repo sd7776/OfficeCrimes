@@ -19,6 +19,11 @@ public class Crime {
         this.suspect = suspect;
     }
 
+    //Create a getter method to get the file name of the photo
+    public String getPhotoFileName(){
+        return "IMG_"+getId().toString()+" .jpg";
+    }
+
     private String suspect;
 
     public Crime(){
